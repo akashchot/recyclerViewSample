@@ -31,16 +31,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupListUpdate() {
-        viewModel.loading.set(View.VISIBLE)
+        viewModel.loading!!.set(View.VISIBLE)
         viewModel.fetchList()
-        viewModel.users.observe(
+        viewModel.getUsers().observe(
             this,
             Observer<List<User>> { users ->
-                viewModel.loading.set(View.GONE)
+                viewModel.loading!!.set(View.GONE)
                 if (users.size == 0) {
-                    viewModel.showEmpty.set(View.VISIBLE)
+                    viewModel.showEmpty!!.set(View.VISIBLE)
                 } else {
-                    viewModel.showEmpty.set(View.GONE)
+                    viewModel.showEmpty!!.set(View.GONE)
                     viewModel.setUsersInAdapter(users)
                 }
             })
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupListClick() {
-        viewModel.getSelected().observe(this, Observer<User> { user ->
+        viewModel.selected.observe(this, Observer<User?> { user ->
             if (user != null) {
                 Toast.makeText(
                     this,
